@@ -15,8 +15,8 @@
     <script>
        window.onload = function () {
            var $audioBtnArray = $('.audioBtn'),
-               oldHref = '',
-               timer = '';
+               oldHref = '';
+            //    timer = '';
            $audioBtnArray.each(function (index, ele) {
                var $ele = $(ele);
                $ele.on('click', function () {
@@ -38,17 +38,17 @@
                             audioTure = $('.audioMp3').get(0)
                         }
                         audioTure.play()
-                        console.log(audioTure.duration)
-                        console.log(audioTure.currentTime)
-                        timer && clearInterval(timer)
-                        timer = setInterval(function () {
-                            console.log(audioTure.duration)
-                            console.log(audioTure.currentTime)
-                        }, 1000)
+                        // console.log(audioTure.duration)
+                        // console.log(audioTure.currentTime)
+                        // timer && clearInterval(timer)
+                        // timer = setInterval(function () {
+                        //     console.log(audioTure.duration)
+                        //     console.log(audioTure.currentTime)
+                        // }, 1000)
                         $this.removeClass('paly').addClass('pause').text('暂停')
                         oldHref = mp3Href;
                    } else {
-                        timer && clearInterval(timer)
+                        // timer && clearInterval(timer)
                         $('.audioMp3').get(0).pause()
                         $this.removeClass('pause').addClass('paly').text('播放')
                    }
