@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>音乐播放</title>
+</head>
+<body>
+    <button class="audioBtn paly" audioHerf='./mp3/1.mp3'>播放</button>
+    <button class="audioBtn paly" audioHerf='./mp3/2.mp3'>播放</button>
+    <button class="audioBtn paly" audioHerf='./mp3/3.mp3'>播放</button>
+    <script src="./jquery/jquery-2.1.1.min.js"></script>
+    <script>
+       window.onload = function () {
+           var $audioBtnArray = $('.audioBtn'),
+               oldHref = '',
+               timer = '';
+           $audioBtnArray.each(function (index, ele) {
+               var $ele = $(ele);
+               $ele.on('click', function () {
+                   var $this = $(this)
+                   if ($this.hasClass('paly')) {
+                        var mp3Href = $this.attr('audioHerf')
+                        var audioTure = '';
+                        if (oldHref != mp3Href) {
+                            $(".audioMp3").remove()
+                            $(".audioBtn.pause").removeClass('pause').addClass('paly').text('播放')
+                            var $audio = $('<audio class="audioMp3"><source src=' + mp3Href + ' type="audio/mp3"></audio>')
+                                $audio.get(0).addEventListener('ended', function () {
+                                    $(".audioBtn.pause").removeClass('pause').addClass('paly').text('播放')
+                                    timer && clearInterval(timer)
+                                }, false);
+                            $('body').append($audio)
+                            audioTure = $audio.get(0)
+                        } else {
+                            audioTure = $('.audioMp3').get(0)
+                        }
+                        audioTure.play()
+                        console.log(audioTure.duration)
+                        console.log(audioTure.currentTime)
+                        timer && clearInterval(timer)
+                        timer = setInterval(function () {
+                            console.log(audioTure.duration)
+                            console.log(audioTure.currentTime)
+                        }, 1000)
+                        $this.removeClass('paly').addClass('pause').text('暂停')
+                        oldHref = mp3Href;
+                   } else {
+                        timer && clearInterval(timer)
+                        $('.audioMp3').get(0).pause()
+                        $this.removeClass('pause').addClass('paly').text('播放')
+                   }
+               })
+           })
+       }
+    </script>
+</body>
+
+</html>
